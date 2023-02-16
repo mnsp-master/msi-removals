@@ -5,7 +5,7 @@ clear-host
 $LogDir = "C:\Temp\MNSP"
 $transcriptlog = "$LogDir\$(Get-date -Format yyyyMMdd-HHmmss)_Solus3_Remove_transcript.log"
 #$sleep = "60"
-$AppPath = "C:\Windows\system32\msiexec.exe"
+$AppPath = "C:\Program Files\Solus3"
 $Arguments = "/x {839FB6AD-0623-469E-BCC9-3249A8BF74C4} /qn /L*V $LogDir\Solus3AgentRemoveMSI.log"
 
 Start-Transcript -Path $transcriptlog
@@ -22,7 +22,7 @@ $installed = (Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\U
         #& $command # execute uninstaller      
         $product.IdentifyingNumber
         Start-Process "C:\Windows\System32\msiexec.exe" `
-        -ArgumentList "/x $($product.IdentifyingNumber) /quiet /noreboot" -Wait
+        -ArgumentList "/x $($product.IdentifyingNumber) /quiet /noreboot /L*V $LogDir\Solus3AgentRemoveMSI.log" -Wait
         
         #Start-Process $AppPath -ArgumentList $Arguments -Wait
         #Write-Host "Sleeping for $sleep seconds..."

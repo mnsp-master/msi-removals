@@ -2,6 +2,7 @@
 #Invokes msiexec to remove application.
 #used in conjunction with emco package builder, to create necessary operating folder/path and distribute/execute this powershell script.
 clear-host
+$mnspver = "1.0.0.2.1"
 $LogDir = "C:\Temp\MNSP"
 $transcriptlog = "$LogDir\$(Get-date -Format yyyyMMdd-HHmmss)_Solus3_Remove_transcript.log"
 $sleep = "60"

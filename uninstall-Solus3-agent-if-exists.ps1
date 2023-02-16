@@ -1,4 +1,4 @@
-#Checks for presence of installed software using uninstall string from registry
+##Checks for presence of installed software using uninstall string from registry
 #Invokes msiexec to remove application.
 #used in conjunction with emco package builder, to create necessary operating folder/path and distribute/execute this powershell script.
 clear-host

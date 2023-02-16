@@ -6,7 +6,7 @@ $LogDir = "C:\Temp\MNSP"
 $transcriptlog = "$LogDir\$(Get-date -Format yyyyMMdd-HHmmss)_Solus3_Remove_transcript.log"
 #$sleep = "60"
 $AppPath = "C:\Windows\system32\msiexec.exe"
-$command = "$AppPath /x {839FB6AD-0623-469E-BCC9-3249A8BF74C4} /qn /L*V $LogDir\Solus3AgentRemoveMSI.log"
+$Args = "/x {839FB6AD-0623-469E-BCC9-3249A8BF74C4} /qn /L*V $LogDir\Solus3AgentRemoveMSI.log"
 
 Start-Transcript -Path $transcriptlog
 function DottedLine {
@@ -17,7 +17,8 @@ $software = "SOLUS 3 Agent"
 $installed = (Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Where { $_.DisplayName -eq $software }) -ne $null #checks for uninstall string from registry
     If($installed) {
         Write-Host "'$software' is installed, procedding with removal..."
-        & $command # execute uninstaller
+        #& $command # execute uninstaller
+        Start-Process $AppPath -ArgumentList $Args -Wait
         #Write-Host "Sleeping for $sleep seconds..."
         #start-Sleep $sleep
         #Remove-Item $AppPath -Recurse -Force -Verbose #force delete orphaned FS content

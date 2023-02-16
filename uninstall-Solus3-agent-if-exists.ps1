@@ -14,11 +14,17 @@ Write-Host "--------------------------------------------------------------------
 } 
 DottedLine
 $software = "SOLUS 3 Agent"
+$product = Get-WmiObject win32_product | where-object {$_.name -eq "$software"}
+
 $installed = (Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Where { $_.DisplayName -eq $software }) -ne $null #checks for uninstall string from registry
     If($installed) {
         Write-Host "'$software' is installed, procedding with removal..."
-        #& $command # execute uninstaller
-        Start-Process $AppPath -ArgumentList $Arguments -Wait
+        #& $command # execute uninstaller      
+        $product.IdentifyingNumber
+        Start-Process "C:\Windows\System32\msiexec.exe" `
+        -ArgumentList "/x $($product.IdentifyingNumber) /quiet /noreboot" -Wait
+        
+        #Start-Process $AppPath -ArgumentList $Arguments -Wait
         #Write-Host "Sleeping for $sleep seconds..."
         #start-Sleep $sleep
         #Remove-Item $AppPath -Recurse -Force -Verbose #force delete orphaned FS content
@@ -29,3 +35,5 @@ DottedLine
 Stop-Transcript
 
 #/x {839FB6AD-0623-469E-BCC9-3249A8BF74C4} /qn /L*V %WORK_DIR%\Solus3AgentRemoveMSI.log
+
+

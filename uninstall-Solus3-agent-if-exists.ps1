@@ -6,7 +6,7 @@ $LogDir = "C:\Temp\MNSP"
 $transcriptlog = "$LogDir\$(Get-date -Format yyyyMMdd-HHmmss)_Solus3_Remove_transcript.log"
 #$sleep = "60"
 $AppPath = "C:\Windows\system32\msiexec.exe"
-$command = "$AppPath /x {839FB6AD-0623-469E-BCC9-3249A8BF74C4} /qn /L*V %LogDir\Solus3AgentRemoveMSI.log"
+$command = "$AppPath /x {839FB6AD-0623-469E-BCC9-3249A8BF74C4} /qn /L*V $LogDir\Solus3AgentRemoveMSI.log"
 
 Start-Transcript -Path $transcriptlog
 function DottedLine {

@@ -1,4 +1,4 @@
-# mnsp-ver 0.0.0.0.21
+# mnsp-ver 0.0.0.0.22
 Clear-Host
 
 $sourcefile = Read-Host "UNC Path to source msi... e.g \\server1\share\install.msi"
@@ -9,7 +9,7 @@ $log = "$destinationFolder\$SourceMSI.log"
 
 do { # loop until user selects 2 to quit - begin
 
-	Write-Host "1. Remotely install msi"
+	Write-Host "1. Remotely execute msiexec"
 	Write-host "2. Quit"
 	$choice = Read-Host "Chose a number to continue"
 
@@ -33,9 +33,9 @@ do { # loop until user selects 2 to quit - begin
 				$session = New-PSSession -computername $computername
 				$session				
 
-				Write-Host "Invoking msi installer ..."
+				Write-Host "Invoking msiexec ..."
 				Invoke-Command -Session $session -ScriptBlock { $SN02=(Start-Process msiexec -ArgumentList '/i', $using:installer, '/q', '/l*', $using:log -wait -PassThru)
-				Write-Host "MSI Exitcode:" $SN02.ExitCode
+				Write-Host "MsiExec Exitcode:" $SN02.ExitCode
 				}
 
 				Write-host "Closing remote session on $computername ..."

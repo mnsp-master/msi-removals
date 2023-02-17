@@ -1,4 +1,4 @@
-# mnsp-ver 0.0.0.0.22
+# mnsp-ver 0.0.0.0.23
 Clear-Host
 
 $sourcefile = Read-Host "UNC Path to source msi... e.g \\server1\share\install.msi"
@@ -33,7 +33,7 @@ do { # loop until user selects 2 to quit - begin
 				$session = New-PSSession -computername $computername
 				$session				
 
-				Write-Host "Invoking msiexec ..."
+				Write-Host "Invoking msiexec on target machine $computername..."
 				Invoke-Command -Session $session -ScriptBlock { $SN02=(Start-Process msiexec -ArgumentList '/i', $using:installer, '/q', '/l*', $using:log -wait -PassThru)
 				Write-Host "MsiExec Exitcode:" $SN02.ExitCode
 				}

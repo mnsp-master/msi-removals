@@ -1,4 +1,4 @@
-# mnsp-ver 0.0.0.0.11
+# mnsp-ver 0.0.0.0.12
 Clear-Host
 
 $sourcefile = Read-Host "UNC Path to source msi... e.g \\server1\share\install.msi"
@@ -44,7 +44,7 @@ switch ($choice)
 	#>
  }
 
-} 
+ 
 
 }until ($choice -eq 2) # loop until user selects 2 to quit - end
 Write-Host "Bye...."

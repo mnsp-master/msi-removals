@@ -1,4 +1,4 @@
-# mnsp-ver 0.0.0.0.17
+# mnsp-ver 0.0.0.0.18
 Clear-Host
 
 $sourcefile = Read-Host "UNC Path to source msi... e.g \\server1\share\install.msi"
@@ -16,18 +16,20 @@ do { # loop until user selects 2 to quit - begin
 			1 {
 				$computername = Read-Host -Prompt 'Input target server name...'
 				
-				$session = New-PSSession -computername $computername
-				$session
-
-				#$destinationFolder = "\\$computername\C$\Temp"
-				#Write-Host " Checking for $destinationFolder"
+				$destinationFolder = "\\$computername\C$\Temp"
+				Write-Host " Checking for $destinationFolder"
 				
 				if (!(Test-Path -path $destinationFolder)) {
 					New-Item $destinationFolder -Type Directory
 				}
 
-				#Write-Host "Copy-Item -Path $using:sourcefile -Destination $destinationFolder -Verbose"
-				Invoke-Command -Session $session -ScriptBlock { Copy-Item -Path $using:sourcefile -Destination $using:destinationFolder -Verbose}
+				Copy-Item -Path $sourcefile -Destination $destinationFolder -Verbose
+
+				$session = New-PSSession -computername $computername
+				$session
+
+				
+				#Invoke-Command -Session $session -ScriptBlock { Copy-Item -Path $using:sourcefile -Destination $using:destinationFolder -Verbose}
 				$installer = "$using:destinationFolder\$using:SourceMSI"
 				$log = "/l* $using:destinationFolder\$using:sourceMSI.log"
 
@@ -38,7 +40,7 @@ do { # loop until user selects 2 to quit - begin
 				#Write-Host "Exitcode:" $SN02.ExitCode
 				#}
 
-				#Remove-PSSession
+				Remove-PSSession $session
 
 				#Write-Host "invoking msiexec on remote computer $computername ..."
 				#Invoke-Command -ComputerName $computername -ScriptBlock { Msiexec /i C:\Temp\$sourceMSI /qb }

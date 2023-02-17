@@ -1,8 +1,9 @@
-# mnsp-ver 0.0.0.0.16
+# mnsp-ver 0.0.0.0.17
 Clear-Host
 
 $sourcefile = Read-Host "UNC Path to source msi... e.g \\server1\share\install.msi"
 $SourceMSI = $sourcefile.split("\")[-1]
+$destinationFolder = "C:\Temp"
 
 do { # loop until user selects 2 to quit - begin
 
@@ -19,18 +20,16 @@ do { # loop until user selects 2 to quit - begin
 				$session
 
 				#$destinationFolder = "\\$computername\C$\Temp"
-				
-				$destinationFolder = "C:\Temp"
-				Write-Host " Checking for $destinationFolder"
+				#Write-Host " Checking for $destinationFolder"
 				
 				if (!(Test-Path -path $destinationFolder)) {
 					New-Item $destinationFolder -Type Directory
 				}
 
-				Write-Host "Copy-Item -Path $using:sourcefile -Destination $destinationFolder -Verbose"
-
-				$installer = "$destinationFolder\$using:SourceMSI"
-				$log = "/l* $destinationFolder\$using:sourceMSI.log"
+				#Write-Host "Copy-Item -Path $using:sourcefile -Destination $destinationFolder -Verbose"
+				Invoke-Command -Session $session -ScriptBlock { Copy-Item -Path $using:sourcefile -Destination $using:destinationFolder -Verbose}
+				$installer = "$using:destinationFolder\$using:SourceMSI"
+				$log = "/l* $using:destinationFolder\$using:sourceMSI.log"
 
 				$installer
 				$log

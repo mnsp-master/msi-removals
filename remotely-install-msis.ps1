@@ -1,4 +1,4 @@
-# mnsp-ver 0.0.0.0.12
+# mnsp-ver 0.0.0.0.13
 Clear-Host
 
 $sourcefile = Read-Host "UNC Path to source msi... e.g \\server1\share\install.msi"

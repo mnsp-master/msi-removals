@@ -12,39 +12,39 @@ do { # loop until user selects 2 to quit - begin
 
 		switch ($choice)
 		{
-		1 {
-			$computername = Read-Host -Prompt 'Input target server name...'
-			
-			$session = New-PSSession -computername $computername
-			$session
+			1 {
+				$computername = Read-Host -Prompt 'Input target server name...'
+				
+				$session = New-PSSession -computername $computername
+				$session
 
-			#$destinationFolder = "\\$computername\C$\Temp"
-			
-			$destinationFolder = "C:\Temp"
-			Write-Host " Checking for $destinationFolder"
-			
-			if (!(Test-Path -path $destinationFolder)) {
-				New-Item $destinationFolder -Type Directory
-			}
+				#$destinationFolder = "\\$computername\C$\Temp"
+				
+				$destinationFolder = "C:\Temp"
+				Write-Host " Checking for $destinationFolder"
+				
+				if (!(Test-Path -path $destinationFolder)) {
+					New-Item $destinationFolder -Type Directory
+				}
 
-			Write-Host Copy-Item -Path $using:sourcefile -Destination $destinationFolder -Verbose
+				Write-Host Copy-Item -Path $using:sourcefile -Destination $destinationFolder -Verbose
 
-			$installer = "$destinationFolder\$using:SourceMSI"
-			$log = "/l* $destinationFolder\$using:sourceMSI.log"
-			
-			#Invoke-Command -Session $session -ScriptBlock { $SN02=(Start-Process msiexec -ArgumentList '/x', $using:installer, '/q', $using:log -wait -PassThru)
-			#Write-Host "Exitcode:" $SN02.ExitCode
-			#}
+				$installer = "$destinationFolder\$using:SourceMSI"
+				$log = "/l* $destinationFolder\$using:sourceMSI.log"
+				
+				#Invoke-Command -Session $session -ScriptBlock { $SN02=(Start-Process msiexec -ArgumentList '/x', $using:installer, '/q', $using:log -wait -PassThru)
+				#Write-Host "Exitcode:" $SN02.ExitCode
+				#}
 
-			#Remove-PSSession
+				#Remove-PSSession
 
-			#Write-Host "invoking msiexec on remote computer $computername ..."
-			#Invoke-Command -ComputerName $computername -ScriptBlock { Msiexec /i C:\Temp\$sourceMSI /qb }
-			Write-Host "--------------------------------------------------------------------- `n"
-			#>
-		}		
+				#Write-Host "invoking msiexec on remote computer $computername ..."
+				#Invoke-Command -ComputerName $computername -ScriptBlock { Msiexec /i C:\Temp\$sourceMSI /qb }
+				Write-Host "--------------------------------------------------------------------- `n"
+				#>
+			}		
 
-	}
+		}
 
 }until ($choice -eq 2) # loop until user selects 2 to quit - end
 Write-Host "Bye...."

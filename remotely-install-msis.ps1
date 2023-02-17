@@ -1,4 +1,4 @@
-# mnsp-ver 0.0.0.0.5
+# mnsp-ver 0.0.0.0.6
 Clear-Host
 
 $sourcefile = Read-Host "Path to source msi..."
@@ -24,7 +24,7 @@ switch ($choice)
 
 	Copy-Item -Path $sourcefile -Destination $destinationFolder -Verbose
 	Write-Host "invoking msiexec on remote computer $computername ..."
-	Invoke-Command -ComputerName $computer -ScriptBlock { Msiexec /i C:\Temp\$sourcefile /qb }
+	Invoke-Command -ComputerName $computername -ScriptBlock { Msiexec /i C:\Temp\$sourcefile /qb }
 	Write-Host "--------------------------------------------------------------------- `n"
 	#>
  }

@@ -1,4 +1,4 @@
-# mnsp-ver 0.0.0.0.4
+# mnsp-ver 0.0.0.0.5
 Clear-Host
 
 $sourcefile = Read-Host "Path to source msi..."

@@ -1,4 +1,4 @@
-#
+# mnsp-ver 0.0.0.0.1
 Clear-Host
 #$sourcefile = "\\server\script\CrystalDiskInfo7.0.4.msi" #update UNC path as necessary
 $sourcefile = Read-Host "Path to source msi..."

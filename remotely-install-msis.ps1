@@ -1,4 +1,4 @@
-# mnsp-ver 0.0.0.0.8
+# mnsp-ver 0.0.0.0.9
 Clear-Host
 
 $sourcefile = Read-Host "UNC Path to source msi... e.g \\server1\share\install.msi"
@@ -27,10 +27,10 @@ switch ($choice)
 		New-Item $destinationFolder -Type Directory
 	}
 
-	Copy-Item -Path $sourcefile -Destination $destinationFolder -Verbose
+	Copy-Item -Path $using:sourcefile -Destination $destinationFolder -Verbose
 
-	$installer = "$destinationFolder\$SourceMSI"
-	$log = "/l* $destinationFolder\$sourceMSI.log"
+	$installer = "$destinationFolder\$using:SourceMSI"
+	$log = "/l* $destinationFolder\$using:sourceMSI.log"
 	
 	Invoke-Command -Session $session -ScriptBlock { $SN02=(Start-Process msiexec -ArgumentList '/x', $using:installer, '/q', $using:log -wait -PassThru)
 	Write-Host "Exitcode:" $SN02.ExitCode

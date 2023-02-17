@@ -1,4 +1,4 @@
-# mnsp-ver 0.0.0.0.20
+# mnsp-ver 0.0.0.0.21
 Clear-Host
 
 $sourcefile = Read-Host "UNC Path to source msi... e.g \\server1\share\install.msi"
@@ -19,21 +19,26 @@ do { # loop until user selects 2 to quit - begin
 				$computername = Read-Host -Prompt 'Input target server name...'
 				
 				$destinationFolder = "\\$computername\C$\Temp"
-				Write-Host " Checking for $destinationFolder"
+				Write-Host " Checking for folder: $destinationFolder ..."
 				
 				if (!(Test-Path -path $destinationFolder)) {
+					Write-Host "Creating folder: $destinationFolder ..."
 					New-Item $destinationFolder -Type Directory
 				}
 
+				Write-Host "Copying file: $sourcefile to $destinationFolder ..."
 				Copy-Item -Path $sourcefile -Destination $destinationFolder -Verbose
 
+				Write-Host "Starting remote session on: $computername ..."
 				$session = New-PSSession -computername $computername
 				$session				
 
-				Invoke-Command -Session $session -ScriptBlock { $SN02=(Start-Process msiexec -ArgumentList '/i', $using:installer, '/q', $using:log -wait -PassThru)
+				Write-Host "Invoking msi installer ..."
+				Invoke-Command -Session $session -ScriptBlock { $SN02=(Start-Process msiexec -ArgumentList '/i', $using:installer, '/q', '/l*', $using:log -wait -PassThru)
 				Write-Host "MSI Exitcode:" $SN02.ExitCode
 				}
 
+				Write-host "Closing remote session on $computername ..."
 				Remove-PSSession $session
 
 				Write-Host "--------------------------------------------------------------------- `n"

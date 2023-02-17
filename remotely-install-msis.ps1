@@ -1,13 +1,9 @@
 # mnsp-ver 0.0.0.0.4
 Clear-Host
-#$sourcefile = "\\server\script\CrystalDiskInfo7.0.4.msi" #update UNC path as necessary
+
 $sourcefile = Read-Host "Path to source msi..."
 
-Read-Host "Please supply credentials when prompted, press any key to continue..."
-#domaincredentials = Get-Credential
-
-
-do {
+do { # loop until user selects 2 to quit - begin
 
 Write-Host "1. Remotely install msi"
 Write-host "2. Quit"
@@ -27,11 +23,13 @@ switch ($choice)
 	}
 
 	Copy-Item -Path $sourcefile -Destination $destinationFolder -Verbose
-	#Invoke-Command -ComputerName $computer -Credential $domaincredentials -ScriptBlock { Msiexec /i C:\Temp\$sourcefile /qb }
+	Write-Host "invoking msiexec on remote computer $computername ..."
+	Invoke-Command -ComputerName $computer -ScriptBlock { Msiexec /i C:\Temp\$sourcefile /qb }
+	Write-Host "--------------------------------------------------------------------- `n"
 	#>
  }
 
 } 
 
-}until ($choice -eq 2)
+}until ($choice -eq 2) # loop until user selects 2 to quit - end
 Write-Host "Bye...."

@@ -1,10 +1,10 @@
-# mnsp-ver 0.0.0.0.2
+# mnsp-ver 0.0.0.0.3
 Clear-Host
 #$sourcefile = "\\server\script\CrystalDiskInfo7.0.4.msi" #update UNC path as necessary
 $sourcefile = Read-Host "Path to source msi..."
 
 Read-Host "Please supply credentials when prompted, press any key to continue..."
-$domaincredentials = Get-Credential
+#domaincredentials = Get-Credential
 
 
 do {
@@ -22,10 +22,10 @@ switch ($choice)
 	$destinationFolder = "\\$computer\C$\Temp"
 	Write-Host " Checking for $destinationFolder"
 	
-	if (!(Test-Path -path $destinationFolder -Credential $domaincredentials)) {
-		New-Item $destinationFolder -Type Directory -Credential $domaincredentials
+	if (!(Test-Path -path $destinationFolder)) {
+		New-Item $destinationFolder -Type Directory
 	}
-	
+
 	<#
 	Copy-Item -Path $sourcefile -Destination $destinationFolder -Credential $domaincredentials
 	Invoke-Command -ComputerName $computer -Credential $domaincredentials -ScriptBlock { Msiexec /i C:\Temp\$sourcefile /qb }

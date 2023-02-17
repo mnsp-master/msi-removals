@@ -1,4 +1,4 @@
-# mnsp-ver 0.0.0.0.9
+# mnsp-ver 0.0.0.0.10
 Clear-Host
 
 $sourcefile = Read-Host "UNC Path to source msi... e.g \\server1\share\install.msi"
@@ -27,16 +27,16 @@ switch ($choice)
 		New-Item $destinationFolder -Type Directory
 	}
 
-	Copy-Item -Path $using:sourcefile -Destination $destinationFolder -Verbose
+	Write-Host "Copy-Item -Path $using:sourcefile -Destination $destinationFolder -Verbose"
 
 	$installer = "$destinationFolder\$using:SourceMSI"
 	$log = "/l* $destinationFolder\$using:sourceMSI.log"
 	
-	Invoke-Command -Session $session -ScriptBlock { $SN02=(Start-Process msiexec -ArgumentList '/x', $using:installer, '/q', $using:log -wait -PassThru)
-	Write-Host "Exitcode:" $SN02.ExitCode
+	#Invoke-Command -Session $session -ScriptBlock { $SN02=(Start-Process msiexec -ArgumentList '/x', $using:installer, '/q', $using:log -wait -PassThru)
+	#Write-Host "Exitcode:" $SN02.ExitCode
 }
 
-	Remove-PSSession
+	#Remove-PSSession
 
 	#Write-Host "invoking msiexec on remote computer $computername ..."
 	#Invoke-Command -ComputerName $computername -ScriptBlock { Msiexec /i C:\Temp\$sourceMSI /qb }

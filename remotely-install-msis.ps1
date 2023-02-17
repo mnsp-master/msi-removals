@@ -1,4 +1,4 @@
-# mnsp-ver 0.0.0.0.3
+# mnsp-ver 0.0.0.0.4
 Clear-Host
 #$sourcefile = "\\server\script\CrystalDiskInfo7.0.4.msi" #update UNC path as necessary
 $sourcefile = Read-Host "Path to source msi..."
@@ -19,16 +19,15 @@ switch ($choice)
 	$computername = Read-Host -Prompt 'Input target server name...'
 	#$computername = 'pc-1', 'pc-2'
 
-	$destinationFolder = "\\$computer\C$\Temp"
+	$destinationFolder = "\\$computername\C$\Temp"
 	Write-Host " Checking for $destinationFolder"
 	
 	if (!(Test-Path -path $destinationFolder)) {
 		New-Item $destinationFolder -Type Directory
 	}
 
-	<#
-	Copy-Item -Path $sourcefile -Destination $destinationFolder -Credential $domaincredentials
-	Invoke-Command -ComputerName $computer -Credential $domaincredentials -ScriptBlock { Msiexec /i C:\Temp\$sourcefile /qb }
+	Copy-Item -Path $sourcefile -Destination $destinationFolder -Verbose
+	#Invoke-Command -ComputerName $computer -Credential $domaincredentials -ScriptBlock { Msiexec /i C:\Temp\$sourcefile /qb }
 	#>
  }
 

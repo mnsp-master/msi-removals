@@ -2,7 +2,7 @@
 #used in conjunction with emco package builder, to create necessary operating folder/path and distribute/execute this powershell script.
 clear-host
 $LogDir = "C:\Temp\MNSP"
-$transcriptlog = "$LogDir\$(Get-date -Format yyyyMMdd-HHmmss)_FusionRemove_transcript.log"
+$transcriptlog = "$LogDir\$(Get-date -Format yyyyMMdd-HHmmss)_Sims.netClient_Remove_transcript.log"
 $sleep = "20"
 $AppPath = "C:\Program Files (x86)\SIMS\Sims .net"
 $StartMenuContent = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\SIMS Applications"
@@ -14,7 +14,15 @@ Write-Host "--------------------------------------------------------------------
 DottedLine
     If(Test-Path $AppPath {
         Write-Host "'$software' is installed, procedding with removal..."
-        
+
+            # get pulsar process - force kill off if currently running...
+            $pulsar = Get-Process pulsar -ErrorAction SilentlyContinue
+            if ($pulsar) {
+            $pulsar | Stop-Process -Force
+            }
+            Remove-Variable pulsar
+            start-sleep $sleep
+
         Remove-Item $AppPath -Recurse -Force -Verbose #force delete orphaned FS content
         Write-Host "Sleeping for $sleep seconds..."
         start-Sleep $sleep
@@ -29,6 +37,6 @@ Stop-Transcript
 <#
 start-Sleep $sleep
 & $command $arguments # execute uninstaller
-
 $installed = (Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Where { $_.DisplayName -eq $software }) -ne $null #checks for uninstall string from registry
+
 #>

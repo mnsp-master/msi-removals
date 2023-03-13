@@ -1,7 +1,7 @@
 #Checks for presence of installed software using: if folder exists
 #used in conjunction with emco package builder, to create necessary operating folder/path and distribute/execute this powershell script.
 clear-host
-$mnspver = "1.0.0.0.2"
+$mnspver = "1.0.0.0.3"
 $LogDir = "C:\Temp\MNSP"
 $transcriptlog = "$LogDir\$(Get-date -Format yyyyMMdd-HHmmss)_Sims.netClient_Remove_transcript.log"
 $sleep = "20"
@@ -19,6 +19,7 @@ DottedLine
             # get pulsar process - force kill off if currently running...
             $pulsar = Get-Process pulsar -ErrorAction SilentlyContinue
             if ($pulsar) {
+                $pulsar
             $pulsar | Stop-Process -Force
             }
             Remove-Variable pulsar

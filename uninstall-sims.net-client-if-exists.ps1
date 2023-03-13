@@ -19,8 +19,11 @@ DottedLine
             # get pulsar process - force kill off if currently running...
             $pulsar = Get-Process pulsar -ErrorAction SilentlyContinue
             if ($pulsar) {
+                Write-Host "sims.net client running..."
                 $pulsar
-            $pulsar | Stop-Process -Force
+                DottedLine
+                Write-Host "Force killing process..."
+                $pulsar | Stop-Process -Force
             }
             Remove-Variable pulsar
             start-sleep $sleep

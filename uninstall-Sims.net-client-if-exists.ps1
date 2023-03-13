@@ -12,7 +12,7 @@ function DottedLine {
 Write-Host "-----------------------------------------------------------------------------------------------`n"
 } 
 DottedLine
-    If(Test-Path $AppPath {
+    If(Test-Path $AppPath ) {
         Write-Host "'$software' is installed, procedding with removal..."
 
             # get pulsar process - force kill off if currently running...

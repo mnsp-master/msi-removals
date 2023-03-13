@@ -3,20 +3,23 @@
 clear-host
 $LogDir = "C:\Temp\MNSP"
 $transcriptlog = "$LogDir\$(Get-date -Format yyyyMMdd-HHmmss)_FusionRemove_transcript.log"
-$sleep = "60"
+$sleep = "20"
 $AppPath = "C:\Program Files (x86)\SIMS\Sims .net"
-
+$StartMenuContent = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\SIMS Applications"
+$software = "Sims .Net Client"
 Start-Transcript -Path $transcriptlog
 function DottedLine {
 Write-Host "-----------------------------------------------------------------------------------------------`n"
 } 
 DottedLine
-    If($installed) {
+    If(Test-Path $AppPath {
         Write-Host "'$software' is installed, procedding with removal..."
-        & $command $arguments # execute uninstaller
+        
+        Remove-Item $AppPath -Recurse -Force -Verbose #force delete orphaned FS content
         Write-Host "Sleeping for $sleep seconds..."
         start-Sleep $sleep
-        Remove-Item $AppPath -Recurse -Force -Verbose #force delete orphaned FS content
+        Remove-Item $StartMenuContent -Recurse -Force -Verbose #force delete orphaned FS content
+
         } else {
         Write-Host "$software' is not installed, exiting with no further actions..."
     }
@@ -24,6 +27,8 @@ DottedLine
 Stop-Transcript
 
 <#
-$software = "FusionInventory Agent 2.6 (x64 edition)"
+start-Sleep $sleep
+& $command $arguments # execute uninstaller
+
 $installed = (Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Where { $_.DisplayName -eq $software }) -ne $null #checks for uninstall string from registry
 #>

@@ -59,3 +59,5 @@ Write-Host "Bye...."
 
 #Write-Host "invoking msiexec on remote computer $computername ..."
 #Invoke-Command -ComputerName $computername -ScriptBlock { Msiexec /i C:\Temp\$sourceMSI /qb }
+
+

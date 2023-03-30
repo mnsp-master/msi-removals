@@ -47,12 +47,6 @@ DottedLine
 Stop-Transcript
 
 <#
-Question
-Sign in to vote
-4
-Sign in to vote
-if( !( ( test-path c:\install\foo.bar ) -and ( test-path c:\install\test.txt ) ) ){
-"one of the files not found!"; break
 
 start-Sleep $sleep
 & $command $arguments # execute uninstaller

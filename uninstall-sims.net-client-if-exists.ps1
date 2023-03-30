@@ -19,7 +19,7 @@ DottedLine
 
 if(!((Test-Path $AppPathScomisHosted ) -and (Test-Path $AppPathOpenVPN))) { #if neither of the other app paths exist proceed with removal...
 
-    If(Test-Path $AppPathSIMS ) {
+    if(Test-Path $AppPathSIMS ) {
         Write-Host "'$software' is installed, procedding with removal..."
 
             # get pulsar process - force kill off if currently running...

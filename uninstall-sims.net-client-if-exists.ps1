@@ -1,7 +1,7 @@
 #Checks for presence of installed software using: if folder exists
 #used in conjunction with emco package builder, to create necessary operating folder/path and distribute/execute this powershell script.
 clear-host
-$mnspver = "1.0.0.0.7"
+$mnspver = "1.0.0.0.8"
 $LogDir = "C:\Temp\MNSP"
 $transcriptlog = "$LogDir\$(Get-date -Format yyyyMMdd-HHmmss)_Sims.netClient_Remove_transcript.log"
 $sleep = "20"
@@ -16,6 +16,11 @@ function DottedLine {
 Write-Host "-----------------------------------------------------------------------------------------------`n"
 } 
 DottedLine
+Write-Host "Checking for AppPath directory:"
+$AppPathOpenVPN
+Test-Path $AppPathOpenVPN
+$AppPathScomisHosted
+Test-Path $AppPathOpenVPN
 
 if(!((Test-Path $AppPathScomisHosted ) -or (Test-Path $AppPathOpenVPN))) { #if neither of the other app paths exist proceed with removal...
 

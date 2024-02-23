@@ -1,4 +1,5 @@
-# mnsp-ver 0.0.0.0.23
+# mnsp-ver 1.0.24
+# push an msi from prompted source to unc destination and execute/install
 Clear-Host
 
 $sourcefile = Read-Host "UNC Path to source msi... e.g \\server1\share\install.msi"
@@ -11,7 +12,7 @@ do { # loop until user selects 2 to quit - begin
 
 	Write-Host "1. Remotely execute msiexec"
 	Write-host "2. Quit"
-	$choice = Read-Host "Chose a number to continue"
+	$choice = Read-Host "Choose a number to continue"
 
 		switch ($choice)
 		{
@@ -49,15 +50,3 @@ do { # loop until user selects 2 to quit - begin
 
 }until ($choice -eq 2) # loop until user selects 2 to quit - end
 Write-Host "Bye...."
-
-#Invoke-Command -Session $session -ScriptBlock { Copy-Item -Path $using:sourcefile -Destination $using:destinationFolder -Verbose}
-#$installer = "$using:destinationFolder\$using:SourceMSI"
-#$log = "/l* $using:destinationFolder\$using:sourceMSI.log"
-
-#$installer
-#$log
-
-#Write-Host "invoking msiexec on remote computer $computername ..."
-#Invoke-Command -ComputerName $computername -ScriptBlock { Msiexec /i C:\Temp\$sourceMSI /qb }
-
-

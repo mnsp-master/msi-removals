@@ -2,7 +2,7 @@
 #used in conjunction with emco package builder, to create necessary operating folder/path and distribute/execute this powershell script.
 #
 clear-host
-$MNSPver = "1.0.2"
+$MNSPver = "1.0.3"
 $LogDir = "C:\Temp\MNSP"
 $transcriptlog = "$LogDir\$(Get-date -Format yyyyMMdd-HHmmss)_FusionRemove_RMMC_Prep_transcript.log"
 $sleep = "60"

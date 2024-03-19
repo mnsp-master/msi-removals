@@ -1,4 +1,4 @@
-#Checks for presence of running process if exists will force terminate it wait for 60 seconds and repeat n times
+#Checks for presence of running process and if exists will force terminate it wait for 60 seconds and repeat n times
 #used in conjunction with emco package builder, to create necessary operating folder/path and distribute/execute this powershell script.
 #
 clear-host
@@ -29,4 +29,3 @@ do { #loop for n times
 
 DottedLine
 Stop-Transcript
-

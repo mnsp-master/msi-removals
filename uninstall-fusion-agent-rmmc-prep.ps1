@@ -26,6 +26,7 @@ do { #loop for n times
         }
     $_++ #Increment loop counter
     Write-Host "Starting failsafe sleep... $(Get-date)"
+    Write-host "Loop number:" $attempt
     Start-Sleep $sleep # additional sleep - just in case process has begun after script has started
 } until ($attempt -gt $RetryCount)
 

@@ -6,7 +6,7 @@ $MNSPver = "1.0.2"
 $LogDir = "C:\Temp\MNSP"
 $transcriptlog = "$LogDir\$(Get-date -Format yyyyMMdd-HHmmss)_FusionRemove_RMMC_Prep_transcript.log"
 $sleep = "60"
-$ProcessToKIll = "notepad"
+$ProcessToKIll = "fusioninventory-agent_windows-x64_2.6.exe"
 $RetryCount = 2 #note attempt 1 will be counted as 0
 
 Start-Transcript -Path $transcriptlog

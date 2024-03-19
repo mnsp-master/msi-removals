@@ -10,6 +10,7 @@ $ProcessToKIll = "fusioninventory-agent_windows-x64_2.6.exe"
 $RetryCount = 2 #note attempt 1 will be counted as 0
 
 Start-Transcript -Path $transcriptlog
+Get-date
 function DottedLine {
 Write-Host "-----------------------------------------------------------------------------------------------`n"
 } 
@@ -24,6 +25,7 @@ do { #loop for n times
         Start-Sleep $sleep 
         }
     $_++ #Increment loop counter
+    Write-Host "Starting failsafe sleep... $(Get-date)"
     Start-Sleep $sleep # additional sleep - just in case process has begun after script has started
 } until ($attempt -gt $RetryCount)
 

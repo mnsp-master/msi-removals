@@ -2,7 +2,7 @@
 #used in conjunction with emco package builder, to create necessary operating folder/path and distribute/execute this powershell script.
 #
 clear-host
-$MNSPver = "1.0.4"
+$MNSPver = "1.0.5"
 $LogDir = "C:\Temp\MNSP"
 $transcriptlog = "$LogDir\$(Get-date -Format yyyyMMdd-HHmmss)_FusionRemove_RMMC_Prep_transcript.log"
 $sleep = "60"
@@ -19,6 +19,7 @@ do { #loop for n times
     $attempt = $RetryCount - ($RetryCount -$_)
     $process = Get-Process "$ProcessToKill" -ErrorAction Ignore
         if ( $process ) {
+        get-date
         Write-host "Process running force killing..."
         Write-host "Loop number:" $attempt
         Stop-Process $Process -Force -Verbose

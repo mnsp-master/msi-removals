@@ -6,12 +6,22 @@ $transcriptlog = "$LogDir\$(Get-date -Format yyyyMMdd-HHmmss)_FusionRemove_trans
 $sleep = "60"
 $ProcessToKIll = "fusioninventory-agent_windows-x64_2.6"
 
-
 Start-Transcript -Path $transcriptlog
 function DottedLine {
 Write-Host "-----------------------------------------------------------------------------------------------`n"
 } 
 DottedLine
+
+#retry 3 time loop required
+
+        $process = Get-Process "$ProcessToKill"
+        if ( $process ) {
+
+        Write-host "Process running force killing..."
+        Stop-Process $Process -Force
+        sleep 60
+
+        }
 
 DottedLine
 Stop-Transcript

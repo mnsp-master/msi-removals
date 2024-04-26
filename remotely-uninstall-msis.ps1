@@ -1,4 +1,4 @@
-# mnsp-ver 1.0.1
+# mnsp-ver 1.0.2
 # remotely uninstall an msi from prompted source tod
 
 Clear-Host
@@ -7,7 +7,7 @@ $SourceMsiGUID = Read-Host "MSI Guid to remove, include opening and closing brac
 #$SourceMSI = $SourceMsiGUID.split("\")[-1]
 $destinationFolder = "C:\Temp"
 #$installer = "$destinationFolder\$SourceMSI"
-$log = "$destinationFolder\$SourceMSI.log"
+$log = "$destinationFolder\$SourceMsiGUID.log"
 
 do { # loop until user selects 2 to quit - begin
 

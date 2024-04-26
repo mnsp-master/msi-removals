@@ -1,9 +1,9 @@
-# mnsp-ver 1.0.3
+# mnsp-ver 1.0.4
 # remotely uninstall an msi using determined msi guid
 
 Clear-Host
 
-$SourceMsiGUID = Read-Host "MSI Guid to remove, include opening and closing braces... e.g: {2DD38941-E21A-49BE-9B7A-D61AC29D86BB}"
+#$SourceMsiGUID = Read-Host "MSI Guid to remove, include opening and closing braces... e.g: {2DD38941-E21A-49BE-9B7A-D61AC29D86BB}"
 #$SourceMSI = $SourceMsiGUID.split("\")[-1]
 $destinationFolder = "C:\Temp"
 #$installer = "$destinationFolder\$SourceMSI"
@@ -11,12 +11,17 @@ $log = "$destinationFolder\$SourceMsiGUID.log"
 
 do { # loop until user selects 2 to quit - begin
 
+	Write-host "0. Input MSI guid to uninstall"
 	Write-Host "1. Remotely execute msiexec remove/uninstall"
 	Write-host "2. Quit"
 	$choice = Read-Host "Choose a number to continue"
 
 		switch ($choice)
 		{
+			0 {
+				$SourceMsiGUID = Read-Host "MSI Guid to remove, include opening and closing braces... e.g: {2DD38941-E21A-49BE-9B7A-D61AC29D86BB}"
+				$log = "$destinationFolder\$SourceMsiGUID.log"
+			}
 			1 {
 				$computername = Read-Host -Prompt 'Input target server name...'
 				

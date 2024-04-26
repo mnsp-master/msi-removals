@@ -3,15 +3,15 @@
 
 Clear-Host
 
-#$SourceMsiGUID = Read-Host "UNC Path to source msi... e.g \\server1\share\install.msi"
+$SourceMsiGUID = Read-Host "MSI Guid to remove, include opening and closing braces... e.g: {2DD38941-E21A-49BE-9B7A-D61AC29D86BB}"
 #$SourceMSI = $SourceMsiGUID.split("\")[-1]
 $destinationFolder = "C:\Temp"
-$installer = "$destinationFolder\$SourceMSI"
+#$installer = "$destinationFolder\$SourceMSI"
 $log = "$destinationFolder\$SourceMSI.log"
 
 do { # loop until user selects 2 to quit - begin
 
-	Write-Host "1. Remotely execute msiexec"
+	Write-Host "1. Remotely execute msiexec remove/uninstall"
 	Write-host "2. Quit"
 	$choice = Read-Host "Choose a number to continue"
 
@@ -28,15 +28,15 @@ do { # loop until user selects 2 to quit - begin
 					New-Item $destinationFolder -Type Directory
 				}
 
-				Write-Host "Copying file: $SourceMsiGUID to $destinationFolder ..."
-				Copy-Item -Path $SourceMsiGUID -Destination $destinationFolder -Verbose
+				#Write-Host "Copying file: $SourceMsiGUID to $destinationFolder ..."
+				#Copy-Item -Path $SourceMsiGUID -Destination $destinationFolder -Verbose
 
 				Write-Host "Starting remote session on: $computername ..."
 				$session = New-PSSession -computername $computername
 				$session				
 
 				Write-Host "Invoking msiexec on target machine $computername..."
-				Invoke-Command -Session $session -ScriptBlock { $SN02=(Start-Process msiexec -ArgumentList '/i', $using:installer, '/q', '/l*', $using:log -wait -PassThru)
+				Invoke-Command -Session $session -ScriptBlock { $SN02=(Start-Process msiexec -ArgumentList '/x', $using:SourceMsiGUID, '/q', '/l*', $using:log -wait -PassThru)
 				Write-Host "MsiExec Exitcode:" $SN02.ExitCode
 				}
 

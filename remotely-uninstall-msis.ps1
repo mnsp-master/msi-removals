@@ -1,5 +1,5 @@
 # mnsp-ver 1.0.2
-# remotely uninstall an msi from prompted source tod
+# remotely uninstall an msi using determined msi guid
 
 Clear-Host
 
